@@ -1,0 +1,33 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+model Cliente {
+  id     Int    @id @default(autoincrement())
+  nombre String
+  email  String @unique
+}
+
+model Pedido {
+  id         Int        @id @default(autoincrement())
+  fecha      DateTime
+  productos  Producto[]
+  costoTotal Float
+}
+
+model Producto {
+  id          Int     @id @default(autoincrement())
+  precio      Float
+  descripcion String
+  pedido      Pedido? @relation(fields: [pedidoId], references: [id])
+  /* 
+  El atributo de arriba quería sacarlo para hacer menos optimo todavía el modelo, pero ni si quiera compila
+  si se lo saco
+  */
+  pedidoId    Int?
+}
