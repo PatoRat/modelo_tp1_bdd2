@@ -4,13 +4,14 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "sqlite"
 }
 
 model Cliente {
-  id     Int    @id @default(autoincrement())
-  nombre String
-  email  String @unique
+  id      Int      @id @default(autoincrement())
+  nombre  String
+  email   String   @unique
+  pedidos Pedido[]
 }
 
 model Pedido {
@@ -18,6 +19,8 @@ model Pedido {
   fecha      DateTime
   productos  Producto[]
   costoTotal Float
+  cliente    Cliente?   @relation(fields: [clienteId], references: [id])
+  clienteId  Int?
 }
 
 model Producto {
@@ -25,9 +28,9 @@ model Producto {
   precio      Float
   descripcion String
   pedido      Pedido? @relation(fields: [pedidoId], references: [id])
-  /* 
-  El atributo de arriba quería sacarlo para hacer menos optimo todavía el modelo, pero ni si quiera compila
-  si se lo saco
-  */
+  /**
+   * El atributo de arriba quería sacarlo para hacer menos optimo todavía el modelo, pero ni si quiera compila
+   * si se lo saco
+   */
   pedidoId    Int?
 }
