@@ -5,8 +5,10 @@
   "license": "ISC",
   "author": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "db": "ts-node src/index.ts"
+    "db": "next dev",
+    "seed": "ts-node prisma/seed.ts"
   },
   "devDependencies": {
     "@types/node": "^25.5.2",

@@ -3,3 +3,5 @@ node_modules
 .env
 
 /generated/prisma
+curl_command.ps1
+.next/
